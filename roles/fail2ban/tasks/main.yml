@@ -1,0 +1,8 @@
+- name: Install Fail2Ban
+  apt: pkg=fail2ban state=present
+  tags: install_fail2ban
+  notify: restart fail2ban
+
+- name: Start Fail2ban on boot
+  service: name=fail2ban enabled=yes
+  tags: setting_fail2ban_on_boot

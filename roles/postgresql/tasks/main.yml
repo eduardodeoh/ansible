@@ -1,0 +1,73 @@
+- name: Install Postgresql Apt Repository
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ {{distro_codename}}-pgdg main'
+  tags: install_postgresql_repo
+
+- name: Install Postgresl Apt Repository Key
+  apt_key: id=ACCC4CF8 url=http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc state=present
+  tags: install_postgresql_repo_key
+
+- name: Install Postgresql package
+  apt: pkg={{ item }} state=latest install_recommends=yes update_cache=yes
+  with_items:
+    - postgresql-{{postgresql_version}}
+    - libpq-dev
+    - python-psycopg2
+    - ptop
+    - pgtune
+    - postgresql-contrib
+  tags: install_postgresql
+
+- name: Setting Postgresql Client Authentication Configuration - pg_hba.conf
+  template: src=postgresql.pg_hba.conf.j2 dest=/etc/postgresql/{{postgresql_version}}/main/pg_hba.conf
+            owner=postgres group=postgres mode=0640
+  notify: reload postgresql
+  tags: setting_postgresql_pg_hba
+
+- name: Backuping Postgresql main config file
+  command: mv /etc/postgresql/{{postgresql_version}}/main/postgresql.conf /etc/postgresql/{{postgresql_version}}/main/postgresql.conf.old creates=/etc/postgresql/9.2/main/postgresql.conf.old
+  tags: setting_postgresql_bkp_conf
+
+- name: Setting Postgresql Optmizing via pgtune
+  command: pgtune
+            -i /etc/postgresql/{{postgresql_version}}/main/postgresql.conf.old
+            -o /etc/postgresql/{{postgresql_version}}/main/postgresql.conf
+            --type=Web
+  tags: setting_postgresql_pgtune
+  sudo_user: postgres
+
+- name: Setting Kernel Tunning for Postgresql Optmizing
+  script: postgresql.kernel.sh
+  notify: restart postgresql
+  tags: setting_postgresql_kernel
+
+- name: Setting Postgresql on boot
+  service: name=postgresql enabled=yes
+  tags: setting_postgresql_on_boot
+
+- name: Create Postgresql user for application
+  postgresql_user: name={{db_user}} password={{db_user_pass}}
+  tags: setting_pg_user
+  sudo_user: postgres
+
+- name: Create Postgresql database for application
+  postgresql_db: name={{db_name}} owner={{db_user}}
+  tags: setting_pg_db
+  sudo_user: postgres
+
+#http://clarkdave.net/2012/09/postgresql-error-type-hstore-does-not-exist/
+- name: Add hstore extension 
+  shell: psql {{ db_name }} -c "CREATE EXTENSION IF NOT EXISTS hstore;"
+  when: postgresql_hstore == true
+  sudo_user: postgres
+
+  #http://www.asahi-net.or.jp/~aa4t-nngk/monit2_en.html#pgsqltest
+- name: Create Postgresql user root for Monit correct monitoring via socket
+  postgresql_user: name=root password=root
+  tags: setting_pg_user_root
+  sudo_user: postgres
+
+  #http://www.asahi-net.or.jp/~aa4t-nngk/monit2_en.html#pgsqltest
+- name: Create Postgresql database root for Monit correct monitoring via socket
+  postgresql_db: name=root owner=root
+  tags: setting_pg_db_root
+  sudo_user: postgres

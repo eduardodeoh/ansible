@@ -1,0 +1,29 @@
+- name: Install packages required for ruby install
+  apt: pkg={{item}} state=latest update_cache=yes install_recommends=yes
+  with_items:
+    - build-essential
+    - curl
+    - libssl-dev
+    - libyaml-dev
+    - libsqlite3-dev
+    - libreadline-dev
+    - zlib1g
+    - zlib1g-dev
+    - libmysqlclient-dev
+    - libcurl4-openssl-dev
+    - libxslt1-dev
+    - libxml2-dev
+    - libxml2
+    - tklib
+    - imagemagick
+    - libmagickwand-dev
+  tags: install_packages_for_ruby
+  sudo: yes
+
+- name: Setting Gem config - ~./gemrc
+  template: src=gemrc dest={{deploy_user_home}}/.gemrc mode=0644
+  tags: setting_gemrc
+
+- name: Install Ruby via rbenv
+  script: ruby.sh {{ruby_version}}
+  tags: install_ruby

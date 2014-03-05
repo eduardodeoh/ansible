@@ -1,0 +1,11 @@
+- name: Install git tool git-crypt - https://github.com/AGWA/git-crypt
+  git: repo=https://github.com/AGWA/git-crypt dest=/opt/git-crypt version=master update=yes
+  tags: install_git_crypt
+
+- name: Compiling git-crypt
+  command: make chdir=/opt/git-crypt
+  tags: compile_git_crypt
+
+- name: Copying git-crypt to /usr/local/bin
+  command: cp /opt/git-crypt/git-crypt /usr/local/bin
+  tags: copying_git_crypt

@@ -1,0 +1,31 @@
+LogDir = /var/log
+TmpDir = /var/cache/logwatch
+
+#Output/Format Options
+Output = mail
+Format = html
+#To make Base64 [aka uuencode] Encode = base64
+Encode = none
+
+#Multiple recipients can be specified by separating them with a space.
+MailTo = {{ smtp_mail_to }}
+
+# Default person to mail reports from.
+MailFrom = {{ smtp_auth_user }}
+
+#Archives default is Yes
+#Archives = No
+
+# The default time range for the report...
+# The current choices are All, Today, Yesterday
+Range = yesterday
+
+# The default detail level for the report. This can either be Low, Med, High or a number.
+# Low = 0 # Med = 5 # High = 10
+Detail = 10
+
+# The 'Service' option expects either the name of a filter
+# (in /usr/share/logwatch/scripts/services/*) or 'All'.
+Service = All
+
+mailer = "{{ mailer }}"

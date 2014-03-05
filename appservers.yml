@@ -1,0 +1,13 @@
+---
+# file: appservers.yml
+
+- name: Setup for APP Servers
+  hosts: appservers
+  remote_user: "{{ deploy_user }}"
+  sudo: yes
+  roles:
+    - { role: git, tags: role_git}
+    - { role: nodejs, tags: role_nodejs }
+    - { role: rbenv, sudo: no, tags: role_rbenv }
+    - { role: ruby, sudo: no, tags: role_ruby }
+    - { role: git_crypt, tags: role_git_crypt, when: install_git_crypt == true }

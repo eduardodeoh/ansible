@@ -1,0 +1,22 @@
+set daemon {{monit_check_interval}}
+
+set logfile /var/log/monit.log
+set idfile /var/lib/monit/id
+set statefile /var/lib/monit/state
+
+set eventqueue
+    basedir /var/lib/monit/events
+    slots 100
+
+set alert {{smtp_mail_to}}
+
+set mailserver {{smtp_server}} port {{smtp_server_port}}
+    username "{{smtp_auth_user}}"
+    password "{{smtp_auth_user_pass}}"
+    using tlsv1
+    with timeout 30 seconds
+
+set httpd port 2812
+    allow {{monit_web_user}}:"{{monit_web_user_pass}}"
+
+include /etc/monit/conf.d/*

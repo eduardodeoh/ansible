@@ -1,0 +1,4 @@
+check process ntp with pidfile /var/run/ntpd.pid
+  start program = "/etc/init.d/ntp start"
+  stop  program = "/etc/init.d/ntp stop"
+  if 5 restarts within 5 cycles then timeout

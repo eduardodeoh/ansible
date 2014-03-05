@@ -1,0 +1,20 @@
+---
+# file: simplevps.yml
+
+- name: "Pre Setup"
+  hosts: all
+  remote_user: ubuntu
+  sudo: yes
+  roles:
+    - common
+    - { role: logwatch, tags: role_logwatch }
+    - { role: msmtp, tags: role_msmtp }
+    - { role: fail2ban, tags: role_fail2ban }
+    - { role: firewall, tags: role_firewall }
+    - { role: monit, tags: role_monit }
+    - { role: ubuntu_motd, tags: role_ubuntu_motd }
+    - { role: hardening_ssh, tags: role_hardening_ssh, when: hardening_ssh == true }
+
+- include: appservers.yml
+- include: webservers.yml
+- include: dbservers.yml

@@ -1,0 +1,15 @@
+- name: Create group sshlogin
+  group: name={{sshlogin_group}} system=no state=present
+  tags: create_sshlogin_group
+
+- name: Create user deploy
+  user: name={{deploy_user}}
+        groups={{sshlogin_group}}
+        append=yes
+        shell={{deploy_user_shell}}
+        state=present
+  tags: create_deploy_user
+
+- name: Setting deploy user password
+  shell: echo {{deploy_user}}:{{deploy_pass}} | chpasswd
+  tags: setting_deploy_pass

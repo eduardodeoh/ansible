@@ -1,0 +1,45 @@
+- name: Install Monit
+  apt: pkg=monit state=present update_cache=yes
+  tags: install_monit
+
+- name: Setting Monit Service
+  template: src=monit.j2 dest=/etc/monit/monitrc mode=0600
+  tags: setting_monit
+
+- name: Disable Monit Sysv script to install Upstart script
+  service: name=monit state=stopped enabled=no
+  tags: setting_monit_stop
+
+- name: Setting Monit init script to Upstart
+  template: src=monit.upstart.j2 dest=/etc/init/monit.conf
+  notify: restart monit
+  tags: setting_monit_upstart
+
+- name: Setting Monin on boot
+  service: name=monit enabled=yes
+  tags: setting_monit_on_boot
+
+- name: Setting Monit -> System
+  template: src=monit.system.j2 dest=/etc/monit/conf.d/system
+  notify: reload monit
+  tags: setting_monit_system
+
+- name: Setting Monit -> Fail2ban
+  template: src=monit.fail2ban.j2 dest=/etc/monit/conf.d/fail2ban
+  notify: reload monit
+  tags: setting_monit_fail2ban
+
+- name: Setting Monit -> NTP
+  template: src=monit.ntp.j2 dest=/etc/monit/conf.d/ntp
+  notify: reload monit
+  tags: setting_monit_ntp
+
+- name: Setting Monit -> Postgresql
+  template: src=monit.postgresql.j2 dest=/etc/monit/conf.d/postgresql
+  notify: reload monit
+  tags: setting_monit_postgresql
+
+- name: Setting Monit -> Nginx
+  template: src=monit.nginx.j2 dest=/etc/monit/conf.d/nginx
+  notify: reload monit
+  tags: setting_monit_nginx

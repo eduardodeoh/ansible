@@ -1,0 +1,7 @@
+- name: restart nginx
+  service: name=nginx state=restarted enabled=yes
+  tags: restart_nginx
+
+- name: reload nginx
+  service: name=nginx state=reloaded
+  tags: reload_nginx

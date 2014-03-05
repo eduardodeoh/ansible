@@ -1,0 +1,16 @@
+#Inventory - Staging Servers
+#It is suggested that you define groups based on purpose of the host (roles) and also geography or datacenter location (if applicable):
+
+[webservers]
+xxx.xxx.xx.xx
+
+[dbservers]
+xxx.xxx.xx.xx
+
+[appservers]
+xxx.xxx.xx.xx
+
+[simplevps:children]
+webservers
+dbservers
+appservers

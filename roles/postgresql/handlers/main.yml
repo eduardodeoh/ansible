@@ -1,0 +1,7 @@
+- name: reload postgresql
+  service: name=postgresql state=reloaded
+  tags: reload_postgresql
+
+- name: restart postgresql
+  service: name=postgresql state=restarted
+  tags: restart_postgresql

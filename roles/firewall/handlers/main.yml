@@ -1,0 +1,7 @@
+- name: restart ufw
+  service: name=ufw state=restarted
+  tags: restart_ufw
+
+- name: reload ufw
+  service: name=monit state=reloaded
+  tags: reload_ufw

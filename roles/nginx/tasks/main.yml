@@ -1,0 +1,24 @@
+- name: Install Nginx Oficial Repository
+  apt_repository: repo='deb http://nginx.org/packages/ubuntu/ {{distro_codename}} nginx'
+  tags: install_nginx_repo
+
+- name: Install Nginx Oficial Repository Signing Key
+  apt_key: id=7BD9BF62 url=http://nginx.org/keys/nginx_signing.key state=present
+  tags: install_nginx_repo_key
+
+- name: Install Nginx package
+  apt: pkg=nginx state=latest update_cache=yes
+  tags: install_nginx
+
+- name: Remove default conf file
+  file: path=/etc/nginx/conf.d/default.conf state=absent
+  tags: remove_nginx_default_conf
+
+- name: Setting Nginx defaults
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+  notify: restart nginx
+  tags: setting_nginx
+
+- name: Setting Nginx on boot
+  service: name=nginx enabled=yes
+  tags: setting_nginx_on_boot

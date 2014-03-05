@@ -1,0 +1,28 @@
+- name: Install msmtp packages
+  apt: name={{item}} state=latest update_cache=yes
+  with_items:
+    - msmtp
+    - msmtp-mta
+    - ca-certificates
+    - bsd-mailx
+  tags: install_msmtp_packages
+
+- name: Setting mstmp for system mail delivery
+  template: src=msmtprc.j2 dest=/etc/msmtprc mode=0644
+  tags: install_msmtp_file_msmtprc
+
+- name: Setting mstmp aliases for system mail delivery
+  template: src=msmtp_aliases.j2 dest=/etc/msmtp.aliases mode=0644
+  tags: install_msmtp_file_msmtp.aliases
+
+- name: Setting logrotate for system mail delivery
+  template: src=logrotate_msmtp.j2 dest=/etc/logrotate.d/msmtp mode=0644
+  tags: install_msmtp_logrotate
+
+- name: Create msmtp log file
+  command: touch /var/log/msmtp.log creates=/var/log/msmtp.log
+  tags: install_msmtp_log_file
+
+- name: Setting msmtp log file permissions
+  file: path=/var/log/msmtp.log mode=0666
+  tags: setting_msmtp_log_file_perm

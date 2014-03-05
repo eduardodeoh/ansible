@@ -1,0 +1,6 @@
+#smtp_server: xxx
+#smtp_server_port: xxxx
+#smtp_auth_user: xxxx
+#smtp_auth_user_pass: xxxx
+#smtp_mail_to: xxxx
+#smtp_ehlo_domain: xxx.com

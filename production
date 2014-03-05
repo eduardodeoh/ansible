@@ -1,0 +1,16 @@
+#Inventory - Production Servers
+#It is suggested that you define groups based on purpose of the host (roles) and also geography or datacenter location (if applicable):
+
+[webservers]
+xxx.xxx.xxx.xxx
+
+[dbservers]
+xxx.xxx.xxx.xxx
+
+[appservers]
+xxx.xxx.xxx.xxx
+
+[simplevps:children]
+webservers
+dbservers
+appservers

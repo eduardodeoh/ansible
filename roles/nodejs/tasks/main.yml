@@ -1,0 +1,7 @@
+- name: Install Git PPA for latest nodejs version
+  apt_repository: repo=ppa:chris-lea/node.js state=present
+  tags: install_nodejs_ppa
+
+- name: Install Nodejs package
+  apt: pkg=nodejs state=latest update_cache=yes
+  tags: install_nodejs

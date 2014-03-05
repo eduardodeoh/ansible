@@ -1,0 +1,9 @@
+- name: Install git tool git-subtree - https://github.com/git/git/blob/master/contrib/subtree/git-subtree.txt
+  git: repo=https://github.com/git/git.git dest=/opt/git-core version=master update=yes
+  when: install_gitsubtree == true
+  tags: install_gitsubtree
+
+- name: Setting gitsubtree
+  copy: src=/opt/git-core/contrib/subtree/git-subtree.sh dest=/usr/bin/git-subtree mode=0755
+  when: install_gitsubtree == true
+  tags: setting_gitsubtree

@@ -1,0 +1,7 @@
+- name: Checking SSH Host Key
+  shell: test -f /etc/ssh/ssh_host_dsa_key || dpkg-reconfigure openssh-server
+  tags: checking_ssh_host_key
+
+#- name: Setting new SSH Host Key
+#  shell: dpkg-reconfigure openssh-server
+#  tags: setting_new_ssh_host_key

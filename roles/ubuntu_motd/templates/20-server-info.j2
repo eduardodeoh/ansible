@@ -1,0 +1,59 @@
+#!/bin/sh
+
+APP={{app_name}}
+
+SERVER_IP=$(ifconfig |grep "inet addr" | grep -v 127 | awk '{print $2}' | cut -f2 -d:)
+
+#NGINX
+WEB_SERVER="NGINX - http://nginx.org/"
+NGINX_CONF="/etc/nginx/nginx.conf"
+NGINX_CONF_DIR="/etc/nginx/sites-enabled/"
+NGINX_LOGS="/var/log/nginx/"
+
+#RAILS
+RAILS_APP_DIR="/var/www/rails/"
+RAILS_APP_SERVER="UNICORN - http://unicorn.bogomips.org/"
+RAILS_APP_SERVER_SCRIPT="/etc/init.d/unicorn_$APP"
+RAILS_APP_CONFIGS="/var/www/rails/$APP/shared/config/"
+RAILS_APP_LOGS="/var/www/rails/$APP/shared/log"
+
+#POSTGRESQL
+DB_INFO="POSTGRESQL {{ postgresql_version }} - http://www.postgresql.org"
+DB_CONF_DIR="/etc/postgresql/"
+DB_LOGS="/var/log/postgresql/"
+
+#MONIT
+MON_INFO="MONIT - http://mmonit.com/monit/"
+MON_CONF="/etc/monit/monitrc"
+MON_CONF_DIR="/etc/monit/conf.d/"
+MON_WEB="http://$APP_URL:2812"
+
+printf "\n * SERVER IP: %s" "$SERVER_IP"
+printf "\n * APP: %s" "$APP"
+printf "\n * APP URL: %s" "$APP_URL"
+printf "\n"
+
+printf "\n * WEB SERVER: %s" "$WEB_SERVER"
+printf "\n * NGINX CONF FILE: %s" "$NGINX_CONF"
+printf "\n * NGINX CONF DIR: %s" "$NGINX_CONF_DIR"
+printf "\n * NGINX LOGS: %s" "$NGINX_LOGS"
+printf "\n"
+
+printf "\n * RAILS APP SERVER: %s" "$RAILS_APP_SERVER"
+printf "\n * RAILS APP DIR: %s" "$RAILS_APP_DIR"
+printf "\n * RAILS APP SERVER SCRIPT: %s" "$RAILS_APP_SERVER_SCRIPT"
+printf "\n * RAILS APP CONFIGS: %s" "$RAILS_APP_CONFIGS"
+printf "\n * RAILS APP LOGS: %s" "$RAILS_APP_LOGS"
+printf "\n"
+
+printf "\n * DATABASE INFO: %s" "$DB_INFO"
+printf "\n * DATABASE CONF DIR: %s" "$DB_CONF_DIR"
+printf "\n * DATABASE LOGS: %s" "$DB_LOGS"
+printf "\n"
+
+printf "\n * MONITORING INFO: %s" "$MON_INFO"
+printf "\n * MONITORING CONF FILE: %s" "$MON_CONF"
+printf "\n * MONITORING CONF DIR: %s" "$MON_CONF_DIR"
+printf "\n * MONITORING WEB INTERFACE: %s" "$MON_WEB"
+
+printf "\n \n"

@@ -1,0 +1,7 @@
+- name: restart monit
+  service: name=monit state=restarted
+  tags: restart_monit
+
+- name: reload monit
+  service: name=monit state=reloaded
+  tags: reload_monit

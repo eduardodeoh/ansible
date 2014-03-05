@@ -1,0 +1,10 @@
+check system vps_server
+  if loadavg(1min) > 4 then alert
+  if loadavg(5min) > 2  for 2 cycles then alert
+  if memory > 75% for 2 cycles then alert
+  if cpu(user) > 75% for 2 cycles then alert
+  if cpu(system) > 30% then alert
+  if cpu(wait) > 20% then alert
+
+check filesystem rootfs with path /
+  if space usage > 80% then alert

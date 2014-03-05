@@ -1,0 +1,15 @@
+- name: Install Uncomplicated Firewall - UFW
+  apt: pkg=ufw state=latest
+  tags: install_ufw
+
+- name: Setting UFW Rules
+  shell: "ufw --force reset && ufw allow {{ ufw_allow_tcp_ports }}/tcp"
+  tags: setting_ufw
+
+- name: Starting UFW 
+  command: ufw --force enable
+  tags: start_ufw
+
+- name: Setting UFW on boot
+  service: name=ufw enabled=yes
+  tags: start_ufw_on_boot

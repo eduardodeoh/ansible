@@ -1,0 +1,9 @@
+---
+# file: webservers.yml
+
+- name: Setup for Webservers
+  hosts: webservers
+  remote_user: "{{ deploy_user }}"
+  sudo: yes
+  roles:
+    - { role: nginx, tags: role_nginx }

@@ -1,0 +1,9 @@
+- name: Install git tool git-encrypt - https://github.com/shadowhand/git-encrypt
+  git: repo=https://github.com/shadowhand/git-encrypt.git dest=/opt/git-encrypt version=master update=yes
+  when: install_git_encrypt == true
+  tags: install_git_encrypt
+
+- name: Setting symlink to git-encrypt
+  file: src=/opt/git-encrypt/gitcrypt dest=/usr/bin/gitcrypt state=link force=yes
+  when: install_git_encrypt == true
+  tags: linking_git_encrypt

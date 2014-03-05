@@ -1,0 +1,4 @@
+#http://askubuntu.com/questions/100052/modify-the-ssh-welcome-message-to-include-system-ip-address
+- name: Setting Ubuntu Motd Messages
+  template: src=20-server-info.j2 dest=/etc/update-motd.d/20-server-info mode=0755
+  tags: setting_ubuntu_motd

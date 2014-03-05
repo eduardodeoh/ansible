@@ -1,0 +1,11 @@
+# Example aliases file
+
+# Send root to Joe and Jane
+#root: joe_smith@example.com, jane_chang@example.com
+
+# Send cron to Mark
+#cron: mark_jones@example.com
+
+# Send everything else to admin
+default: {{ smtp_mail_to }}
+

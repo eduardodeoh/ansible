@@ -1,0 +1,8 @@
+#Distro Linux
+distro_codename: precise
+
+#Nginx workers number
+nginx_workers: 1
+
+#Sudo user
+deploy_user: deploy

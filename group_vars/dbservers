@@ -1,0 +1,12 @@
+#Distro Linux
+distro_codename: precise
+
+#Sudo user
+deploy_user: deploy
+
+#Database Info
+postgresql_version: 9.3
+db_user: yourdbuser
+db_user_pass: yourdbpass
+db_name: yourdbname
+postgresql_hstore: true

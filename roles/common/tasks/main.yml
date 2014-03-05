@@ -1,0 +1,12 @@
+- include: setting_default_shell.yml
+- include: setting_locale.yml
+- include: update_system.yml
+- include: setting_ntp.yml
+- include: setting_timezone.yml
+- include: check_ssh_host_key.yml
+- include: install_basic_packages.yml
+- include: setting_root_password.yml
+- include: create_deploy_user.yml
+- include: setting_authorized_key.yml
+- include: setting_sudoers.yml
+- include: setting_unattended_upgrades.yml

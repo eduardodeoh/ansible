@@ -1,0 +1,8 @@
+- name: Install Git PPA for latest git version
+  #apt_repository: repo=ppa:pdoes/ppa state=present
+  apt_repository: repo=ppa:git-core/ppa state=present
+  tags: install_git_ppa
+
+- name: Install Git package
+  apt: pkg=git state=latest update_cache=yes
+  tags: install_git

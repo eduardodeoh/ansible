@@ -1,0 +1,11 @@
+description "Monit service manager"
+    limit core unlimited unlimited
+
+    start on runlevel [2345]
+    stop on runlevel [!2345]
+
+    expect daemon
+    respawn
+
+    exec /usr/bin/monit -c /etc/monit/monitrc
+    pre-stop exec /usr/bin/monit -c /etc/monit/monitrc quit

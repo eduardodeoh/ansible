@@ -1,0 +1,13 @@
+- name: Generate default locale
+  command: locale-gen {{default_locale_lang}}
+  tags: generate_default_locale
+
+- name: Set default locale lang
+  shell: export LANG={{default_locale_lang}}
+
+- name: Set default locale lang messages
+  shell: export LC_MESSAGES={{default_locale_messages}}
+
+- name: Set default locale file
+  template: src=locale.j2 dest=/etc/default/locale mode=0644
+  tags: setting_default_locale

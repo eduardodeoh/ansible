@@ -1,0 +1,19 @@
+defaults
+  logfile /var/log/msmtp.log
+
+account system
+  protocol smtp
+  host {{ smtp_server }}
+  port {{ smtp_server_port }}
+  timeout off
+  domain {{ smtp_ehlo_domain }}
+  tls on
+  tls_trust_file /usr/share/ca-certificates/mozilla/Equifax_Secure_CA.crt
+  #tls_certcheck off
+  auth on
+  user {{ smtp_auth_user }}
+  password {{ smtp_auth_user_pass }}
+  auto_from off
+  from {{ smtp_auth_user }}
+
+account default: system

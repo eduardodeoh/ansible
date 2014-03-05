@@ -1,0 +1,7 @@
+- name: restart fail2ban
+  service: name=fail2ban state=restarted
+  tags: restart_fail2ban
+
+- name: reload fail2ban
+  service: name=monit state=reloaded
+  tags: reload_fail2ban

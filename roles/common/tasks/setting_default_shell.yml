@@ -1,0 +1,3 @@
+- name: Setting default shell /bin/sh -> /bin/bash
+  file: src={{default_shell}} dest=/bin/sh state=link
+  tags: setting_default_shell

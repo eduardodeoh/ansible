@@ -1,0 +1,9 @@
+---
+# file: dbservers.yml
+
+- name: Setup for DB Servers
+  hosts: dbservers
+  remote_user: "{{ deploy_user }}"
+  sudo: yes
+  roles:
+    - { role: postgresql, tags: role_postgresql }

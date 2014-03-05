@@ -1,0 +1,8 @@
+- name: Install basic packages for system
+  apt: name={{item}} state=latest
+  with_items:
+    - vim
+    - python-software-properties
+    - htop
+    - sysv-rc-conf
+  tags: install_basic_packages
