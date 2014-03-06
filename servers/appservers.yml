@@ -5,6 +5,9 @@
   hosts: appservers
   remote_user: "{{ deploy_user }}"
   sudo: yes
+  vars_files:
+    - /group_vars/default.yml
+    - /group_vars/sensitive.yml
   roles:
     - { role: git, tags: role_git}
     - { role: nodejs, tags: role_nodejs }

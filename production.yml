@@ -19,6 +19,6 @@
     - { role: ubuntu_motd, tags: role_ubuntu_motd }
     - { role: hardening_ssh, tags: role_hardening_ssh, when: hardening_ssh == true }
 
-- include: appservers.yml
-- include: webservers.yml
-- include: dbservers.yml
+- include: /servers/appservers.yml
+- include: /servers/webservers.yml
+- include: /servers/dbservers.yml

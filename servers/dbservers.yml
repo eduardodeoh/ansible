@@ -5,5 +5,8 @@
   hosts: dbservers
   remote_user: "{{ deploy_user }}"
   sudo: yes
+  vars_files:
+    - /group_vars/default.yml
+    - /group_vars/sensitive.yml
   roles:
     - { role: postgresql, tags: role_postgresql }
