@@ -2,15 +2,15 @@
 #It is suggested that you define groups based on purpose of the host (roles) and also geography or datacenter location (if applicable):
 
 [webservers]
-xxx.xxx.xxx.xxx
+54.207.47.0
 
 [dbservers]
-xxx.xxx.xxx.xxx
+54.207.47.0
 
 [appservers]
-xxx.xxx.xxx.xxx
+54.207.47.0
 
-[simplevps:children]
+[vps_production:children]
 webservers
 dbservers
 appservers
