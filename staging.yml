@@ -1,10 +1,14 @@
 ---
-# file: simplevps.yml
+# Staging Environment
+# Digital Ocean
 
-- name: "Pre Setup"
+- name: "Staging Environment"
   hosts: all
-  remote_user: ubuntu
-  sudo: yes
+  remote_user: root
+  sudo: no
+  vars_files:
+    - /group_vars/default.yml
+    - /group_vars/sensitive.yml
   roles:
     - common
     - { role: logwatch, tags: role_logwatch }

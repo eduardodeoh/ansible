@@ -1,3 +1,6 @@
+---
+# Default variables
+
 #App name
 app_name: yourappname
 
@@ -12,7 +15,6 @@ default_locale_messages: en_US.UTF-8
 deploy_user: deploy
 deploy_user_shell: /bin/bash
 deploy_user_home: /home/deploy
-deploy_pass: youruserpass
 
 #UFW
 ufw_allow_tcp_ports: 22,80,443,2812
@@ -24,10 +26,6 @@ ssh_pub_key_path: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 mailer: /usr/bin/msmtp -t
 smtp_server: smtp.gmail.com
 smtp_server_port: 587
-smtp_mail_to: youremail@gmail.com
-smtp_auth_user: youremail@gmail.com
-smtp_auth_user_pass: youremailpass
-smtp_ehlo_domain: localhost
 
 # Hardening SSH - SSH Key login only
 hardening_ssh: true
@@ -35,18 +33,22 @@ sshlogin_group: sshlogin
 
 #Change root password?
 change_root_pass: true
-root_pass: yourrootpassword
 
 #Distro Linux
 distro_codename: precise
 
+#Ruby version
+ruby_version: 2.1.0
+
 #Database Info
 postgresql_version: 9.3
+postgresql_hstore: true
+
+#Nginx workers number
+nginx_workers: 1
 
 #Monit info
 monit_check_interval: 60
-monit_web_user: admin
-monit_web_user_pass: yourmonitpassword
 
 #git-encrypt - https://github.com/shadowhand/git-encrypt
 install_git_encrypt: false

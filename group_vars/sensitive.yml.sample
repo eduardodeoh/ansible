@@ -1,0 +1,20 @@
+---
+# Sensitive data.
+# Rename to sensitive.yml
+# Do not put this file into source control
+
+deploy_pass: youruserpass
+
+smtp_mail_to: youremail@gmail.com
+smtp_auth_user: youremail@gmail.com
+smtp_auth_user_pass: youremailpass
+smtp_ehlo_domain: localhost
+
+root_pass: yourrootpassword
+
+db_user: yourdbuser
+db_user_pass: yourdbpass
+db_name: yourdbname
+
+monit_web_user: admin
+monit_web_user_pass: yourmonitpassword
