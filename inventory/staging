@@ -1,16 +1,16 @@
-#Inventory - Production Servers
+#Inventory - Staging Servers
 #It is suggested that you define groups based on purpose of the host (roles) and also geography or datacenter location (if applicable):
 
 [webservers]
-54.207.47.0
+54.207.63.153
 
 [dbservers]
-54.207.47.0
+54.207.63.153
 
 [appservers]
-54.207.47.0
+54.207.63.153
 
-[vps_production:children]
+[vps_staging:children]
 webservers
 dbservers
 appservers

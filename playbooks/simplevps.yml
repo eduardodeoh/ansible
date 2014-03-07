@@ -3,10 +3,10 @@
 
 - name: "Pre Setup"
   hosts: all
-  remote_user: "{{ remote_user }}"
+  remote_user: "{{ remote_user | default(root) }}"
   sudo: yes
   roles:
-    - common
+    - { role: common, tags: role_common }
     - { role: logwatch, tags: role_logwatch }
     - { role: msmtp, tags: role_msmtp }
     - { role: fail2ban, tags: role_fail2ban }
