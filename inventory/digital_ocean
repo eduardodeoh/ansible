@@ -1,0 +1,2 @@
+[digital_ocean]
+localhost ansible_connection=local
