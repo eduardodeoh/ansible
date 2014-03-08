@@ -8,7 +8,6 @@ do_client_id_env: "{{ lookup('env','DO_CLIENT_ID') }}"
 #do_api_key: xxxxx
 do_api_key_env: "{{ lookup('env','DO_API_KEY') }}"
 
-
 do_name: mydroptletname
 
 #Digital Ocean - ID - Size of Droplet
@@ -24,10 +23,12 @@ do_size: 66
 #"id":4,"name":"New York 2","slug":"nyc2"
 #"id":5,"name":"Amsterdam 2","slug":"ams2"
 #"id":6,"name":"Singapore 1","slug":"sgp1"
-do_region: 1
+do_region: 4
 
 # Digital Ocean - ID of image of Droplet
-do_image: 1505447
+do_image: 1505447 # Ubuntu 12 x64
 
 #Your ssh keys uploaded to Digital Ocean
-do_ssh_key_ids: 27627,90956
+do_ssh_key_ids: xxxxx
+do_ssh_key_ids: "{{ lookup('env','DO_SSH_KEY_IDS') }}"
+
