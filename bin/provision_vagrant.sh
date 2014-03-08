@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 ansible-playbook \
 	..\pre_setup_site.yml \

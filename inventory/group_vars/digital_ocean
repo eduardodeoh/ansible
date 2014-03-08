@@ -1,0 +1,25 @@
+#Execute script provisioners/digital_ocean/doapi.sh to obtain details
+
+do_client_id: xxxxx
+do_api_key: xxxxx
+do_name: mydroptletname
+
+#Digital Ocean - ID - Size of Droplet
+#"id":66,"name":"512MB","slug":"512mb","memory":512,"cpu":1,"disk":20
+#"id":63,"name":"1GB","slug":"1gb","memory":1024,"cpu":1,"disk":30
+#"id":62,"name":"2GB","slug":"2gb","memory":2048,"cpu":2,"disk":40
+#"id":64,"name":"4GB","slug":"4gb","memory":4096,"cpu":2,"disk":60
+do_size: 66
+
+#Digital Ocean - ID - Region of Droplet
+#"id":1,"name":"New York 1","slug":"nyc1"
+#"id":3,"name":"San Francisco 1","slug":"sfo1"
+#"id":4,"name":"New York 2","slug":"nyc2"
+#"id":5,"name":"Amsterdam 2","slug":"ams2"
+#"id":6,"name":"Singapore 1","slug":"sgp1"
+do_region: 1
+
+# Digital Ocean - ID of image of Droplet
+do_image: 1505447
+
+do_ssh_key_ids: xxxx
