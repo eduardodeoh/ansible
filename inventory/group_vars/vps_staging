@@ -1,0 +1,8 @@
+#App name
+app_name: yourappname
+
+#DBSERVERS VARS
+db_user: yourdbuser
+db_user_pass: yourdbpass
+db_name: yourdbname
+postgresql_hstore: true

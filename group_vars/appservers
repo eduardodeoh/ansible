@@ -1,5 +1,0 @@
-#Deploy Home
-deploy_user_home: /home/deploy
-
-#Ruby version
-ruby_version: 2.1.0

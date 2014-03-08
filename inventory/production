@@ -1,16 +1,16 @@
-#Inventory - Staging Servers
+#Inventory - Production Servers
 #It is suggested that you define groups based on purpose of the host (roles) and also geography or datacenter location (if applicable):
 
 [webservers]
-xxx.xxx.xx.xx
+192.241.150.237
 
 [dbservers]
-xxx.xxx.xx.xx
+192.241.150.237
 
 [appservers]
-xxx.xxx.xx.xx
+192.241.150.237
 
-[simplevps:children]
+[vps_production:children]
 webservers
 dbservers
 appservers

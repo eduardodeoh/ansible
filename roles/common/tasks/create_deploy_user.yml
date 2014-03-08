@@ -11,5 +11,5 @@
   tags: create_deploy_user
 
 - name: Setting deploy user password
-  shell: echo {{deploy_user}}:{{deploy_pass}} | chpasswd
-  tags: setting_deploy_pass
+  shell: echo {{deploy_user}}:{{deploy_user_pass}} | chpasswd
+  tags: setting_deploy_user_pass

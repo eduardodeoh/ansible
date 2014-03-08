@@ -1,24 +1,48 @@
-#App name
-app_name: yourappname
+#COMMON VARIABLES FOR ALL ENVIRONMENTS
+#FOR SPECIFIC VARIABLE FOR EACH ENVIRONMENT
+#REMOVE IT FROM HERE AND INSERT ON SPECIFIC ENVIRONMENT GROUP
+
+
+#Distro Linux
+distro_codename: precise
+
+
+#Nginx workers number
+nginx_workers: 1
+
+
+#DBSERVERS VARS
+postgresql_version: 9.3
+
+
+#APPSERVERS VARS
+#Ruby version
+ruby_version: 2.1.0
+
 
 #Default shell
 default_shell: /bin/bash
+
 
 #Default Locale
 default_locale_lang: pt_BR.UTF-8
 default_locale_messages: en_US.UTF-8
 
+
 #Default user to deploy
 deploy_user: deploy
 deploy_user_shell: /bin/bash
 deploy_user_home: /home/deploy
-deploy_pass: youruserpass
+deploy_user_pass: youruserpass
+
 
 #UFW
 ufw_allow_tcp_ports: 22,80,443,2812
 
+
 #Local pubkey for SSH authorized_keys
 ssh_pub_key_path: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
 
 #System Mail
 mailer: /usr/bin/msmtp -t
@@ -29,24 +53,22 @@ smtp_auth_user: youremail@gmail.com
 smtp_auth_user_pass: youremailpass
 smtp_ehlo_domain: localhost
 
+
 # Hardening SSH - SSH Key login only
 hardening_ssh: true
 sshlogin_group: sshlogin
+
 
 #Change root password?
 change_root_pass: true
 root_pass: yourrootpassword
 
-#Distro Linux
-distro_codename: precise
-
-#Database Info
-postgresql_version: 9.3
 
 #Monit info
 monit_check_interval: 60
 monit_web_user: admin
 monit_web_user_pass: yourmonitpassword
+
 
 #git-encrypt - https://github.com/shadowhand/git-encrypt
 install_git_encrypt: false
