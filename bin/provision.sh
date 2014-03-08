@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 # Provision role from simplevps.yml into a existing server from inventory
 

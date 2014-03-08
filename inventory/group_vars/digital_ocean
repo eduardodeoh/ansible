@@ -1,7 +1,14 @@
 #Execute script provisioners/digital_ocean/doapi.sh to obtain details
 
-do_client_id: xxxxx
-do_api_key: xxxxx
+#DEFINE DIGITAL OCEAN CLIEN ID HERE OR VIA ENV VARIABLE DO_CLIENT_ID (DEFAULT)
+#do_client_id: xxxxx
+do_client_id_env: "{{ lookup('env','DO_CLIENT_ID') }}"
+
+#DEFINE DIGITAL OCEAN API KEY HERE OR VIA ENV VARIABLE DO_API_KEY (DEFAULT)
+#do_api_key: xxxxx
+do_api_key_env: "{{ lookup('env','DO_API_KEY') }}"
+
+
 do_name: mydroptletname
 
 #Digital Ocean - ID - Size of Droplet
@@ -22,4 +29,5 @@ do_region: 1
 # Digital Ocean - ID of image of Droplet
 do_image: 1505447
 
-do_ssh_key_ids: xxxx
+#Your ssh keys uploaded to Digital Ocean
+do_ssh_key_ids: 27627,90956

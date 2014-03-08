@@ -3,16 +3,16 @@
 #https://github.com/elbuo8/blogs/tree/master/Ansible%20%26%20DigitalOcean
 #http://sendgrid.com/blog/ansible-and-digital-ocean/
 #https://github.com/garethr/ansible-provisioner
-- hosts: localhost
-  #connection: local
+- name: Digital Ocean Provisioner
+  hosts: localhost
   gather_facts: False
   tasks:
     - name: Create a new DO Droplet
       digital_ocean: >
         state=present
         command=droplet
-        client_id={{ do_client_id }}
-        api_key={{ do_api_key }}
+        client_id={{ do_client_id | default(do_client_id_env) }}
+        api_key={{ do_api_key | default(do_api_key_env) }}
         ssh_key_ids={{ do_ssh_key_ids }}
         name={{ do_name }}
         size_id={{ do_size }}
@@ -21,6 +21,18 @@
         wait_timeout=500
         wait=yes
         virtio=yes
-      register: my_droplet
-    - debug: msg="ID is {{ my_droplet.droplet.id }}"
-    - debug: msg="IP is {{ my_droplet.droplet.ip_address }}"
+      register: do_droplet
+    - debug: msg="ID is {{ do_droplet.droplet.id }}"
+    - debug: msg="IP is {{ do_droplet.droplet.ip_address }}"
+
+    - name: Add instance public IP to host group
+      add_host: name={{ do_droplet.droplet.ip_address  }} groups=teste
+
+#NOT TESTED YET
+#UNCOMENT OUT TO TEST 
+#- name: Pre Setup
+#  hosts: teste
+#  remote_user: root
+#  gather_facts: False
+#  roles:
+#    - { role: common, tags: role_common }
