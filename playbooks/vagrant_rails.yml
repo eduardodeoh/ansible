@@ -17,7 +17,7 @@
     - postgresql_version: 9.3
     - create_pg_user: true
     - create_pg_db: false
-    - postgresql_hstore: false
+    - setting_hstore_extension: true
     - db_user: vagrant
     - db_user_pass: vagrant
     - db_user_roles: CREATEDB

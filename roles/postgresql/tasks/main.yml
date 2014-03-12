@@ -58,10 +58,18 @@
   sudo_user: postgres
 
 #http://clarkdave.net/2012/09/postgresql-error-type-hstore-does-not-exist/
-- name: Add hstore extension
-  shell: psql {{ db_name }} -c "CREATE EXTENSION IF NOT EXISTS hstore;"
-  when: postgresql_hstore == true
+#- name: Add hstore extension to database
+#  shell: psql {{ db_name }} -c "CREATE EXTENSION IF NOT EXISTS hstore;"
+#  when: postgresql_hstore == true
+#  sudo_user: postgres
+
+- name: Alter postgresql database template for extension hstore
+  command: psql template1 -c 'create extension hstore;'
+  sudo: yes
   sudo_user: postgres
+  ignore_errors: True
+  when: setting_hstore_extension == true
+  tags: setting_hstore_extension
 
   #http://www.asahi-net.or.jp/~aa4t-nngk/monit2_en.html#pgsqltest
 - name: Create Postgresql user root for Monit correct monitoring via socket
