@@ -1,0 +1,34 @@
+---
+- name: "Setup Vagrant - Ubuntu 12.04 + RBENV + RUBY + POSTGRESQL + GIT"
+  hosts: vagrant
+  remote_user: "vagrant"
+  gather_facts: False
+  sudo: yes
+  vars:
+    #Default shell
+    - default_shell: /bin/bash
+    #Default Locale
+    - default_locale_lang: pt_BR.UTF-8
+    - default_locale_messages: en_US.UTF-8
+    - deploy_user: vagrant
+    - deploy_user_home: "/home/vagrant"
+    - ruby_version: 2.1.0
+    - install_git_crypt: true
+    - postgresql_version: 9.3
+    - create_pg_user: true
+    - create_pg_db: false
+    - postgresql_hstore: false
+    - db_user: vagrant
+    - db_user_pass: vagrant
+    - db_user_roles: CREATEDB
+    - distro_codename: precise
+
+
+  roles:
+    - { role: vagrant_common, tags: role_vagrant_common }
+    - { role: git, tags: role_git }
+    - { role: nodejs, tags: role_nodejs }
+    - { role: rbenv, sudo: no, tags: role_rbenv }
+    - { role: ruby, sudo: no, tags: role_ruby }
+    - { role: git_crypt, tags: role_git_crypt, when: install_git_crypt == true }
+    - { role: postgresql, tags: role_postgresql }

@@ -14,10 +14,14 @@
   git: repo=git://github.com/sstephenson/rbenv-gem-rehash.git dest={{deploy_user_home}}/.rbenv/plugins/rbenv-rehash
   tags: install_rbenv_rehash
 
-- name: Install rbenv plugin - rbenv-vars
-  git: repo=git://github.com/sstephenson/rbenv-vars.git dest={{deploy_user_home}}/.rbenv/plugins/rbenv-vars
-  tags: install_rbenv_vars
-
 - name: Install rbenv plugin - rbenv-update
   git: repo=git://github.com/rkh/rbenv-update.git dest={{deploy_user_home}}/.rbenv/plugins/rbenv-update
   tags: install_rbenv_update
+
+- name: Install rbenv plugin - rbenv default rbenv-gem
+  git: repo=git://github.com/sstephenson/rbenv-default-gems.git dest={{deploy_user_home}}/.rbenv/plugins/rbenv-default-gems
+  tags: install_rbenv_default_gems
+
+- name: Generate file rbenv default gems
+  shell: echo 'bundler' > {{deploy_user_home}}/.rbenv/default-gems
+  tags: setting_default_gems

@@ -1,0 +1,5 @@
+- name: Configure Timezone
+  #bug? doesn't work...
+  #file: src=/usr/share/zoneinfo/America/Sao_Paulo path=/etc/localtime state=link force=yes
+  command: ln -nsf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+  tags: setting_timezone

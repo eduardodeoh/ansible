@@ -1,0 +1,7 @@
+- name: Updating list packages
+  apt: update_cache=yes cache_valid_time=3600
+  tags: updating_list_pkgs
+
+- name: Upgrading system packages
+  apt: upgrade=yes
+  tags: upgrading_system_pkgs

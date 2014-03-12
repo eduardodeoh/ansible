@@ -44,18 +44,21 @@
   service: name=postgresql enabled=yes
   tags: setting_postgresql_on_boot
 
+
 - name: Create Postgresql user for application
-  postgresql_user: name={{db_user}} password={{db_user_pass}}
-  tags: setting_pg_user
+  postgresql_user: name={{db_user}} password={{db_user_pass}} role_attr_flags={{db_user_roles}}
+  when: create_pg_user == true
+  tags: create_pg_user
   sudo_user: postgres
 
 - name: Create Postgresql database for application
   postgresql_db: name={{db_name}} owner={{db_user}}
-  tags: setting_pg_db
+  when: create_pg_db == true
+  tags: create_pg_db
   sudo_user: postgres
 
 #http://clarkdave.net/2012/09/postgresql-error-type-hstore-does-not-exist/
-- name: Add hstore extension 
+- name: Add hstore extension
   shell: psql {{ db_name }} -c "CREATE EXTENSION IF NOT EXISTS hstore;"
   when: postgresql_hstore == true
   sudo_user: postgres

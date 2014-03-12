@@ -28,7 +28,7 @@ do_region: 4
 # Digital Ocean - ID of image of Droplet
 do_image: 1505447 # Ubuntu 12 x64
 
-#Your ssh keys uploaded to Digital Ocean
-do_ssh_key_ids: xxxxx
-do_ssh_key_ids: "{{ lookup('env','DO_SSH_KEY_IDS') }}"
+#DEFINE DIGITAL OCEAN SSH KEY IDS HERE OR VIA ENV VARIABLE DO_SSH_KEY_IDS (DEFAULT)
+#do_ssh_key_ids: xxxxx,xxx,xxx
+do_ssh_key_ids_env: "{{ lookup('env','DO_SSH_KEY_IDS') }}"
 

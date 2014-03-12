@@ -2,32 +2,25 @@
 #FOR SPECIFIC VARIABLE FOR EACH ENVIRONMENT
 #REMOVE IT FROM HERE AND INSERT ON SPECIFIC ENVIRONMENT GROUP
 
-
 #Distro Linux
 distro_codename: precise
-
 
 #Nginx workers number
 nginx_workers: 1
 
-
 #DBSERVERS VARS
 postgresql_version: 9.3
-
 
 #APPSERVERS VARS
 #Ruby version
 ruby_version: 2.1.0
 
-
 #Default shell
 default_shell: /bin/bash
-
 
 #Default Locale
 default_locale_lang: pt_BR.UTF-8
 default_locale_messages: en_US.UTF-8
-
 
 #Default user to deploy
 deploy_user: deploy

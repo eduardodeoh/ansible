@@ -1,0 +1,7 @@
+- name: Install Service Unattended Upgrades
+  apt: pkg=unattended-upgrades state=present
+  tags: install_unattended_upgrades
+
+- name: Setting frequency for unattended upgrades
+  template: src=unattended-upgrades-10 dest=/etc/apt/apt.conf.d/10periodic mode=0644
+  tags: setting_unattended_frequency

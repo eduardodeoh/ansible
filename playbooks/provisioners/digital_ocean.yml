@@ -13,7 +13,7 @@
         command=droplet
         client_id={{ do_client_id | default(do_client_id_env) }}
         api_key={{ do_api_key | default(do_api_key_env) }}
-        ssh_key_ids={{ do_ssh_key_ids | default(do_ssh_key_ids) }}
+        ssh_key_ids={{ do_ssh_key_ids | default(do_ssh_key_ids_env) }}
         name={{ do_name }}
         size_id={{ do_size }}
         region_id={{ do_region }}
@@ -28,8 +28,10 @@
     - name: Add instance public IP to host group
       add_host: name={{ do.droplet.ip_address  }} groups=do_host
 
-    - name: Wait VM to boot
-      pause: minutes=2
+    #Problems with time to activate DO instance, wait a few minutes before execute
+    #other playbooks in sequence
+    - name: Wait DO Instance to boot
+      pause: minutes=1
 
 - name: Pre Setup
   hosts: do_host
