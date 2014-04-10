@@ -20,7 +20,7 @@
     - setting_hstore_extension: true
     - db_user: vagrant
     - db_user_pass: vagrant
-    - db_user_roles: CREATEDB
+    - db_user_roles: "SUPERUSER"
     - distro_codename: precise
 
 

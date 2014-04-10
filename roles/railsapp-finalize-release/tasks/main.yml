@@ -1,0 +1,22 @@
+---
+- name: generetate directory timestamp
+  command: date "+%Y.%m.%d-%H.%M.%S"
+  register: dir_timestamp
+  tags: create_release_directory
+
+- name: move build directory to releases directory
+  command: "mv {{ build_path }} {{ releases_path }}/{{ dir_timestamp.stdout }}"
+  tags: create_release_directory
+
+- name: update the current symlink to most recent release
+  file:
+    src: "{{ releases_path }}/{{ dir_timestamp.stdout }}"
+    dest: "{{ current_path }}"
+    state: "link"
+    force: "yes"
+  tags: create_release_directory
+
+- name: cleanup old releases
+  shell: "ls -dt {{ releases_path }}/* | sort -nr | tail -n +{{ releases_number }} | xargs rm -rf"
+  when: cleanup
+  tags: cleanup_old_releases

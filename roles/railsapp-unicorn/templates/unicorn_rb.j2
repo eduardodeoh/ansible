@@ -1,0 +1,46 @@
+root = "{{ current_path }}"
+
+working_directory root
+
+pid "{{ unicorn_pid }}"
+stderr_path "{{ unicorn_log }}"
+stdout_path "{{ unicorn_log }}"
+
+listen "{{ unicorn_socket }}"
+worker_processes {{ unicorn_workers }}
+timeout {{ unicorn_timeout }}
+
+preload_app {{ unicorn_zero_downtime }}
+
+#http://www.rostamizadeh.net/blog/2012/05/25/capistrano-deployment-ending-in-bundler-gemfilenotfound/
+#http://davidvollbracht.com/blog/headachenewunicorn-capistrano-bundler-usr2
+before_exec do |server|
+  ENV['BUNDLE_GEMFILE'] = File.join(root, 'Gemfile')
+end
+
+before_fork do |server, worker|
+
+  # Disconnect since the database connection will not carry over
+  if defined? ActiveRecord::Base
+    ActiveRecord::Base.connection.disconnect!
+  end
+
+  # Quit the old unicorn process
+  old_pid = "#{server.config[:pid]}.oldbin"
+  if File.exists?(old_pid) && server.pid != old_pid
+    begin
+      Process.kill("QUIT", File.read(old_pid).to_i)
+    rescue Errno::ENOENT, Errno::ESRCH
+      # someone else did our job for us
+    end
+  end
+end
+
+after_fork do |server, worker|
+  # Start up the database connection again in the worker
+  if defined?(ActiveRecord::Base)
+    ActiveRecord::Base.establish_connection
+  end
+  child_pid = server.config[:pid].sub(".pid", ".#{worker.nr}.pid")
+  system("echo #{Process.pid} > #{child_pid}")
+end

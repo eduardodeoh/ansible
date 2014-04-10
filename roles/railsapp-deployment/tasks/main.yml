@@ -1,0 +1,34 @@
+---
+#http://stackoverflow.com/questions/22115936/install-bundler-gem-using-ansible
+- name: execute bundler
+  #Use login shell to avoid problems with rbenv
+  command: bash -lc "{{ bundle_install }}"
+  tags: execute_bundler
+
+- name: check if database exists
+  command: chdir={{ build_path }} bash -lc "./bin/rake db:version"
+  ignore_errors: True
+  register: rake_db_version_result
+  tags: execute_rake_db_check_version
+  environment:
+    RAILS_ENV: "{{ rails_env }}"
+
+- name: create database
+  command: chdir={{ build_path }} bash -lc "./bin/rake db:setup"
+  environment:
+    RAILS_ENV: "{{ rails_env }}"
+  when: rake_db_version_result|failed
+  tags: execute_rake_db_create
+
+- name: apply database migrations
+  command: chdir={{ build_path }} bash -lc "./bin/rake db:migrate"
+  environment:
+    RAILS_ENV: "{{ rails_env }}"
+  #when: rake_db_version_result|success
+  tags: execute_rake_db_migrate
+
+- name: precompile assets
+  command: chdir={{ build_path }} bash -lc "./bin/rake assets:precompile"
+  environment:
+    RAILS_ENV: "{{ rails_env }}"
+  #tags: execute_rake_assets_precompile

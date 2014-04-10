@@ -1,0 +1,12 @@
+
+instance_type: m1.small
+
+security_group: your_security_group_name
+
+image: ami-e14ceefc
+
+region: sa-east-1
+
+key_name: your_key_name
+
+app_name: ansible_myapp

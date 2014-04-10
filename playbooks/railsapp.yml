@@ -1,0 +1,60 @@
+---
+#Help From: https://blog.nicolai86.eu/posts/2013-12-28/deploying-with-ansible/
+- hosts: vps_production
+  user: deploy
+  gather_facts: False
+  vars:
+    application_name: "example"
+    deploy_user: deploy
+    home_directory: "/home/{{ deploy_user }}"
+    rails_env: "production"
+    git_user: "yourgituser"
+    git_repo_name: "yourgitreponame"
+    deploy_to: "{{ home_directory }}/rails/{{ application_name }}"
+    repo: "git@github.com:{{ git_user }}/{{ git_repo_name }}"
+    branch: yourbranchname
+    build_path: "{{ deploy_to }}/build"
+    nginx_domain_name: "yourdomainname"
+
+  roles:
+    -
+      role: railsapp-prepare-release
+
+      directories:
+        - "{{ shared_path }}/config"
+        - "{{ shared_path }}/uploads"
+        - "{{ shared_path }}/public/assets"
+
+      #templates example
+      #templates:
+      #  - { src: "dotenv.j2", dest: "{{ shared_path }}/config/.env" }
+
+      symlinks:
+        - { src: "{{ shared_path }}/public/assets", dest: "{{ build_path }}/public/assets" }
+        - { src: "{{ shared_path }}/log", dest: "{{ build_path }}/log" }
+        - { src: "{{ shared_path }}/uploads", dest: "{{ build_path }}/uploads" }
+        - { src: "{{ shared_path }}/config/.env", dest: "{{ build_path }}/.env" }
+        - { src: "{{ shared_path }}/config/database.yml", dest: "{{ build_path }}/config/database.yml" }
+
+      tags: railsapp-prepare-release
+
+
+    -
+      role: railsapp-deployment
+      tags: railsapp-deployment
+
+    -
+      role: railsapp-finalize-release
+      tags: railsapp-finalize-release
+
+    -
+      role: railsapp-unicorn
+      tags: railsapp-unicorn
+
+  tasks:
+    - name: Restart Unicorn init script
+      command: service unicorn_{{ application_name }} restart
+      tags: restart_unicorn
+
+
+

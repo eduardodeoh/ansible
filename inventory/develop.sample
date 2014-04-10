@@ -1,0 +1,17 @@
+#Inventory - Develop Servers
+#It is suggested that you define groups based on purpose of the host (roles) and
+#also geography or datacenter location (if applicable):
+
+[webservers]
+xxxx.xxx.xxx.xxxx
+
+[dbservers]
+xxxx.xxx.xxx.xxxx
+
+[appservers]
+xxxx.xxx.xxx.xxxx
+
+[vps_develop:children]
+webservers
+dbservers
+appservers

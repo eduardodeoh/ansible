@@ -1,0 +1,35 @@
+---
+  #http://www.rostamizadeh.net/blog/2012/03/09/wrangling-unicorn-usr2-signals-and-capistrano-deployments/
+  - name: Generate Unicorn Application Server Init Script
+    template:
+      src: "unicorn_init.j2"
+      dest: "/etc/init.d/unicorn_{{ application_name }}"
+      owner: "{{ deploy_user }}"
+      group: "{{ deploy_user }}"
+      mode: "0755"
+    sudo: yes
+    tags: template_unicorn_init_script
+
+  - name: Enable Unicorn init script to boot during startup
+    service: name=unicorn_{{ application_name }} enabled=yes
+    sudo: yes
+    tags: enable_unicorn_init_script
+
+  - name: create logrotate unicorn configuration file
+    template:
+      src: "unicorn_logrotate.j2"
+      dest: "/etc/logrotate.d/unicorn_{{ application_name }}"
+      owner: "root"
+      group: "root"
+      mode: "0644"
+    sudo: yes
+    tags: create_unicorn_logrotate_file
+
+  - name: Generate Unicorn Configuration File
+    template:
+      src: "unicorn_rb.j2"
+      dest: "{{ shared_path }}/config/unicorn.rb"
+      owner: "{{ deploy_user }}"
+      group: "{{ deploy_user }}"
+      mode: "0600"
+    tags: template_unicorn_configuration

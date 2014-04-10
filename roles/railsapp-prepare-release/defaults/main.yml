@@ -1,0 +1,35 @@
+# default directories necessary for the role to work. DO NOT CHANGE!!
+default_directories:
+  - "{{ deploy_to }}"
+  - "{{ deploy_to }}/releases"
+  - "{{ deploy_to }}/build"
+  - "{{ shared_path }}"
+  - "{{ shared_path }}/vendor"
+  - "{{ shared_path }}/vendor/bundle"
+  - "{{ shared_path }}/log"
+  - "{{ shared_path }}/tmp"
+  - "{{ shared_path }}/tmp/pids"
+  - "{{ shared_path }}/tmp/sockets"
+
+
+#default templates
+default_templates:
+  - { src: "dotenv.j2", dest: "{{ shared_path }}/config/.env" }
+  - { src: "database.j2", dest: "{{ shared_path }}/config/database.yml" }
+
+templates: []
+
+
+# default folders to symlink
+default_symlinks:
+  - { src: "{{ shared_path }}/log", dest: "{{ build_path }}/log" }
+  - { src: "{{ shared_path }}/tmp", dest: "{{ build_path }}/tmp" }
+
+# shared path for configuration files, uploads, etc.
+shared_path: "{{ deploy_to }}/shared"
+
+# path to symlink the new deploy to
+current_path: "{{ deploy_to }}/current"
+
+#Alter database template to permit create hstore extension
+create_hstore_extension: True

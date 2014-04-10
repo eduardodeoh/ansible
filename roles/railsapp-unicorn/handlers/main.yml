@@ -1,0 +1,7 @@
+- name: reload unicorn
+  service: name=unicorn_{{ application_name }} state=reloaded
+  tags: reload_unicorn
+
+- name: restart unicorn
+  service: name=unicorn_{{ application_name }} state=restarted
+  tags: restart_unicorn

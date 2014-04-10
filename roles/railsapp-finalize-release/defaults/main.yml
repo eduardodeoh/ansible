@@ -1,0 +1,14 @@
+#Number of release to maintain
+releases_number: 5
+
+# keep only number releases deployments
+cleanup: true
+
+# default directory the contains all releases
+releases_path: "{{ deploy_to }}/releases"
+
+# path where successful releases are moved to
+#release_path: "{{ releases_path }}/{{ dir_timestamp.stdout }}"
+
+# path to symlink the new deploy to
+current_path: "{{ deploy_to }}/current"

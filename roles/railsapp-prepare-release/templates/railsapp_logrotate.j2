@@ -1,0 +1,10 @@
+{{ railsapp_log }} {
+  daily
+  missingok
+  rotate {{ railsapp_logrotate_period }}
+  dateext
+  compress
+  delaycompress
+  notifempty
+  copytruncate
+}

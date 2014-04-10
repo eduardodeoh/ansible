@@ -63,6 +63,7 @@
 #  when: postgresql_hstore == true
 #  sudo_user: postgres
 
+#http://clarkdave.net/2012/09/postgresql-error-type-hstore-does-not-exist/
 - name: Alter postgresql database template for extension hstore
   command: psql template1 -c 'create extension hstore;'
   sudo: yes

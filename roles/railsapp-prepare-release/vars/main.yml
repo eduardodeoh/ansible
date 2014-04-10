@@ -1,0 +1,30 @@
+#NGINX
+nginx_root_path: "/etc/nginx"
+nginx_conf_path: "/etc/nginx/conf.d"
+nginx_log_path: "/var/log/nginx"
+
+
+#AWS CREDENTIALS
+aws_s3_key: "yourawss3key"
+aws_s3_secret: "yourawss3secret"
+#http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
+aws_s3_region: "sa-east-1"
+aws_s3_bucket: "yourbucketname"
+aws_s3_asset_url: "https://yoururltobucketname"
+
+#RAILS SECRET TOKEN - Genereted by "rake secret" or "openssl rand -hex 64"
+rails_secret_token: "insertyoursecrettokenhere"
+
+
+#DATABASE CREDENTIALS
+db_adapter: postgresql
+db_encoding: unicode
+db_pool: 5
+db_user: yourdbuser
+db_user_pass: yourdbname
+db_name: yourdbname
+postgresql_hstore: true
+
+#LOGROTATE RAILS APP
+railsapp_log: "{{ shared_path }}/log/{{ rails_env }}"
+railsapp_logrotate_period: 30

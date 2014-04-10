@@ -1,0 +1,8 @@
+unicorn_workers: 1
+unicorn_timeout: 30
+unicorn_zero_downtime: "true"
+unicorn_pid: "{{ current_path }}/tmp/pids/unicorn.pid"
+unicorn_socket: "{{ current_path }}/tmp/sockets/unicorn.socket"
+unicorn_log: "{{ shared_path }}/log/unicorn.log"
+unicorn_config: "{{ shared_path }}/config/unicorn.rb"
+unicorn_logrotate_period: 30

@@ -1,0 +1,2 @@
+[amazon_aws]
+localhost ansible_connection=local

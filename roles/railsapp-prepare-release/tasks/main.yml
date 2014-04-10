@@ -1,0 +1,98 @@
+---
+
+- name: create default and shared directories to deploy
+  file:
+    path: "{{ item }}"
+    state: "directory"
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+    mode: "0755"
+  with_items:
+    - "{{ default_directories }}"
+    - "{{ directories }}"
+  tags: create_directories_to_deploy
+
+
+- name: create configuration files from templates to deploy
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+    mode: "0600"
+  with_items:
+    - "{{ default_templates }}"
+    - "{{ templates }}"
+  tags: create_files_from_templates
+
+- name: create or update the bare Git repository
+  git:
+    repo: "{{ repo }}"
+    dest: "{{ deploy_to }}/repo"
+    version: "{{ branch }}"
+    bare: yes
+    update: yes
+    accept_hostkey: yes
+  tags: create_update_git_repo
+
+- name: clone the bare Git repository to build directory
+  git:
+    repo: "{{ deploy_to }}/repo"
+    dest: "{{ build_path }}"
+    version: "{{ branch }}"
+    bare: no
+    update: yes
+  tags: git_clone_repo
+
+- name: correct build directory permissions
+  file:
+    path: "{{ build_path }}"
+    mode: 0755
+  tags: correct_build_path_permission
+
+- name: symlink shared files to build directory
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: "link"
+    force: "yes"
+    recurse: "yes"
+  with_items:
+    - "{{ default_symlinks }}"
+    - "{{ symlinks }}"
+  tags: symlink_shared_files
+
+- name: create logrotate railsapp configuration file
+  template:
+    src: "railsapp_logrotate.j2"
+    dest: "/etc/logrotate.d/railsapp_{{ application_name }}"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  sudo: yes
+  tags: create_railsapp_logrotate_file
+
+- name: create nginx configuration file for rails app
+  template:
+    src: "nginx.conf.j2"
+    dest: "/etc/nginx/conf.d/railsapp_{{ application_name }}.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  sudo: yes
+  notify: reload nginx
+  tags: create_railsapp_nginx_file
+
+- name: Create Postgresql user for rails application
+  postgresql_user: name={{db_user}} password={{db_user_pass}} role_attr_flags=CREATEDB,NOSUPERUSER
+  sudo: yes
+  sudo_user: postgres
+  tags: setting_pg_user
+
+- name: Alter postgresql database template for extension hstore
+  command: psql template1 -c 'create extension hstore;'
+  sudo: yes
+  sudo_user: postgres
+  ignore_errors: True
+  when: create_hstore_extension
+  tags: setting_hstore_extension
