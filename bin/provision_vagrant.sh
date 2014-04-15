@@ -1,9 +1,9 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 ansible-playbook \
-	..\pre_setup_site.yml \
+	playbooks/vagrant_rails.yml \
 	-u vagrant \
-	-i vagrant.yml \
+	-i inventory/vagrant.sample \
 	-s \
-	--private-key=/vagrant/insecure_private_key \
+	--private-key=~/.vagrant.d/insecure_private_key \
 	$*
