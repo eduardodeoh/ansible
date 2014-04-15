@@ -13,7 +13,7 @@ postgresql_version: 9.3
 
 #APPSERVERS VARS
 #Ruby version
-ruby_version: 2.1.0
+ruby_version: 2.1.1
 
 #Default shell
 default_shell: /bin/bash

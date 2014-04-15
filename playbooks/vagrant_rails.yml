@@ -12,7 +12,7 @@
     - default_locale_messages: en_US.UTF-8
     - deploy_user: vagrant
     - deploy_user_home: "/home/vagrant"
-    - ruby_version: 2.1.0
+    - ruby_version: 2.1.1
     - install_git_crypt: true
     - postgresql_version: 9.3
     - create_pg_user: true
