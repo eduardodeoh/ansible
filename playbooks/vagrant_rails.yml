@@ -1,6 +1,6 @@
 ---
 - name: "Setup Vagrant - Ubuntu 12.04 + RBENV + RUBY + POSTGRESQL + GIT"
-  hosts: vagrant
+  hosts: localhost
   remote_user: "vagrant"
   gather_facts: False
   sudo: yes
