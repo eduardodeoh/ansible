@@ -17,6 +17,11 @@
     - tklib
     - imagemagick
     - libmagickwand-dev
+    - autoconf
+    - bison
+    - libreadline6
+    - libreadline6-dev
+
   tags: install_packages_for_ruby
   sudo: yes
 
